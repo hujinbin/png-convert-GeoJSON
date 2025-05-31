@@ -4,7 +4,7 @@ from shapely.geometry import Polygon
 import geojson
 
 # 读取PNG图像并转换为灰度图
-img = cv2.imread('test.png', 0)
+img = cv2.imread('map.jpg', 0)
 print(img)  # 输出图像的形状
 print(img.shape)  # 输出图像的形状
 # 进行自适应阈值处理，将图像二值化
