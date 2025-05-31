@@ -33,7 +33,7 @@ for idx, contour in enumerate(contours, 1):
                     "ID_1": idx,
                     "ISO": "HKG"
                 }
-                feature = geojson.Feature(geometry=polygon, properties={})
+                feature = geojson.Feature(geometry=polygon, properties=properties)
                 features.append(feature)
 
 feature_collection = geojson.FeatureCollection(features)
