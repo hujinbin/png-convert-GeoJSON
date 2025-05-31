@@ -4,7 +4,7 @@ from shapely.geometry import Polygon
 import geojson
 
 # 读取PNG图像并转换为灰度图
-img = cv2.imread('map.jpg', 0)
+img = cv2.imread('test.png', 0)
 print(img)  # 输出图像的形状
 print(img.shape)  # 输出图像的形状
 # 进行自适应阈值处理，将图像二值化
@@ -13,7 +13,7 @@ thresh = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THR
 contours, _ = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
 features = []
-for contour in contours:
+for idx, contour in enumerate(contours, 1):
     contour = contour.squeeze()  # 去除多余维度
     if len(contour) >= 4: 
         epsilon = 0.01 * cv2.arcLength(contour, True)
@@ -27,6 +27,12 @@ for contour in contours:
             
             polygon = Polygon(approx)
             if polygon.is_valid:  # 检查多边形是否有效
+                properties = {
+                    "name": str(idx),
+                    "ID_0": 102,
+                    "ID_1": idx,
+                    "ISO": "HKG"
+                }
                 feature = geojson.Feature(geometry=polygon, properties={})
                 features.append(feature)
 
